@@ -1,0 +1,21 @@
+.arrow {
+    display: flex;
+    justify-content: space-around;
+    width: 36px;
+    padding: 1px;
+    font-size: 10px;
+    border: 1px solid #fff;
+}
+
+.arrow:first-child {
+    padding-top: 5px;
+}
+
+.arrow:last-child {
+    padding-bottom: 5px;
+}
+
+.arrow:active {
+    background: #e6e6e6;
+    border: 1px solid #d6d6d6;
+}

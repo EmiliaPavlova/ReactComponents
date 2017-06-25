@@ -1,0 +1,47 @@
+.label {
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.inputWrap {
+    display: flex;
+    padding-bottom: 25px;
+    color: #444;
+    border-radius: 2px;
+}
+
+.input {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    vertical-align: top;
+    border: 1px solid #e6e6e6;
+    -webkit-transition: box-shadow 0.5s;
+    transition: box-shadow 0.5s;
+}
+
+.inputWrap .input:hover,
+.inputWrap .input:focus {
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+}
+
+.inputWrap input {
+    padding: 0;
+    flex-grow: 1;
+    font-size: 14px;
+    text-indent: 11px;
+    border: 0;
+    outline: 0;
+}
+
+.arrowsWrap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.arrowsWrap:hover {
+    cursor: pointer;
+}
