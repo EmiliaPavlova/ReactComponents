@@ -8,15 +8,30 @@ const arrowDown = '\u25BC';
 class Input extends Component {
     constructor(props) {
         super(props);
-        this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
-        this.updateValue = this.updateValue.bind(this);
         this.state = {
             value: props.value,
             addSign: true,
             fixed: true,
             focused: false
         };
+        this.initialValue = props.value;
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.increment = this.increment.bind(this);
+        this.decrement = this.decrement.bind(this);
+    }
+
+    componentWillReceiveProps({ value }) {
+        this.initialValue = value;
+
+        if (this.state.value !== value) {
+            this.setState({
+                value: value
+            });
+        }
     }
 
     onFocus() {
@@ -35,21 +50,51 @@ class Input extends Component {
         });
     }
 
-    handleChange() {
-        return this.state.value;
+    handleChange(e) {
+        let newValue = e.target.value;
+        this.setState({value: newValue});
     }
 
-    updateValue(e) {
-        debugger;
-        
+    handleKeyPress(e) {
+        if (e.key === 'Enter'){
+            // this.onSubmit(); - when needed
+            this.onBlur();
+        }
+    }
+
+    handleKeyDown(e) {
+        if (e.keyCode === 38) {
+            this.increment();
+        } else if (e.keyCode === 40) {
+            this.decrement();
+        }
+    }
+
+    increment() {
+        this.onFocus();
+        let { step } = this.props;
+        let { value } = this.state;
+        this.setState({
+            value: value + step
+        });
+    }
+
+    decrement() {
+        this.onFocus();
+        let { step } = this.props;
+        let { value } = this.state;
+        this.setState({
+            value: value - step
+        });
     }
 
     render() {
         let { label, type, sign, position, toFixed, step } = this.props;
         let { addSign, fixed, focused } = this.state;
-        let value = this.state.value;
-        if (type === 'percent' && !focused) {
-            value *= 100;
+
+        let value = Number(this.state.value);
+        if (type === 'percent' && focused) {
+            value /= 100;
         }
         value = fixed ? value.toFixed(toFixed) : value;
         if (addSign) {
@@ -74,10 +119,12 @@ class Input extends Component {
                           step={step}
                           onFocus={this.onFocus}
                           onBlur={this.onBlur}
-                          onChange={this.handleChange} />
+                          onChange={this.handleChange}
+                          onKeyPress={this.handleKeyPress}
+                          onKeyDown={this.handleKeyDown} />
                         <div className='arrowsWrap'>
-                            <Arrows label={arrowUp} onClick={this.updateValue} />
-                            <Arrows label={arrowDown} onClick={this.updateValue} />
+                            <Arrows label={arrowUp} updateValue={this.increment} />
+                            <Arrows label={arrowDown} updateValue={this.decrement} />
                         </div>
                     </div>
                 </div>

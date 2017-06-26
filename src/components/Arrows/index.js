@@ -4,18 +4,17 @@ import './style.css';
 const arrowUp = '\u25B2';
 const arrowDown = '\u25BC';
 
-class Arrows extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: props.value,
-            step: props.step
-        };
-    }
+const Arrows = ({ label, updateValue }) => {
+    return <div onClick={updateValue} className='arrow'>{label}</div>;
+}
 
-    render() {
-        return <div className='arrow'>{this.props.label}</div>;
-    }
+Arrows.propTypes = {
+    label: PropTypes.string,
+    updateValue: PropTypes.func
+};
+
+Arrows.defaultProps = {
+    updateValue: () => {}
 }
 
 export default Arrows;
