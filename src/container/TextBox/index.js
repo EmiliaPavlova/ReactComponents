@@ -21,6 +21,8 @@ class TextBox extends Component {
             sign={input.sign}
             toFixed={input.toFixed}
             step={input.step}
+            min={input.min}
+            max={input.max}
             position={input.position}
             value={input.defaultValue} />
         </div>

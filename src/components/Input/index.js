@@ -72,19 +72,21 @@ class Input extends Component {
 
     increment() {
         this.onFocus();
-        let { step } = this.props;
+        let { step, min, max } = this.props;
         let { value } = this.state;
+        let newValue = +value + step;
         this.setState({
-            value: value + step
+            value: (newValue <= max && newValue >= min) ? newValue : value
         });
     }
 
     decrement() {
         this.onFocus();
-        let { step } = this.props;
+        let { step, min, max } = this.props;
         let { value } = this.state;
+        let newValue = +value - step;
         this.setState({
-            value: value - step
+            value: (newValue <= max && newValue >= min) ? newValue : value
         });
     }
 
@@ -115,7 +117,7 @@ class Input extends Component {
                         <input
                           type={type}
                           className={this.inputClassName}
-                          value={value || ''}
+                          value={value}
                           step={step}
                           onFocus={this.onFocus}
                           onBlur={this.onBlur}
